@@ -1,7 +1,8 @@
 import { createStore } from 'vuex';
 
 export default createStore({
-  state: {},
+  state: {
+  },
   getters: {
     items(state) {
       return state.bxResponse ? Object.values(state.bxResponse.ITEMS) : [];
@@ -51,14 +52,14 @@ export default createStore({
     changeBxResponseDisabled(state, fetchResult) {
       const disabled = {};
 
-      Object.items(fetchResult.ITEMS).forEach((item) => {
-        Object.items(item.VALUES).forEach((value) => {
+      Object.values(fetchResult.ITEMS).forEach((item) => {
+        Object.values(item.VALUES).forEach((value) => {
           disabled[value.CONTROL_ID] = value.DISABLED;
         });
       });
 
-      Object.items(state.bxResponse.ITEMS).forEach((item) => {
-        Object.items(item.VALUES).forEach((value) => {
+      Object.values(state.bxResponse.ITEMS).forEach((item) => {
+        Object.values(item.VALUES).forEach((value) => {
           value.DISABLED = disabled[value.CONTROL_ID];
         });
       });

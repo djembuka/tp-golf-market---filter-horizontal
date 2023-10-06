@@ -2,7 +2,7 @@
   <div
     class="vm-filter-checkbox"
     :class="{
-      'vm-filter-checkbox--disabled': Number(item.ELEMENT_COUNT) <= 0,
+      'vm-filter-checkbox--disabled': item.DISABLED,
     }"
   >
     <label
