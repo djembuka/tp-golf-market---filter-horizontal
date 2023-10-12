@@ -6,16 +6,19 @@
         :block="block"
       ></block-checkbox>
     </div>
+    <cancel-button></cancel-button>
   </div>
 </template>
 
 <script>
 import BlockCheckbox from './components/BlockCheckbox.vue';
+import CancelButton from './components/CancelButton.vue';
 
 export default {
   name: 'App',
   components: {
     BlockCheckbox,
+    CancelButton,
   },
   mounted() {
     //bx data
