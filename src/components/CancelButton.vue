@@ -8,7 +8,9 @@
 export default {
   methods: {
     clear() {
-      console.log('clear');
+      if (this.$store.state.bxResponse) {
+        window.location.href = this.$store.state.bxResponse.SEF_DEL_FILTER_URL;
+      }
     },
   },
 };
