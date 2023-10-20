@@ -1,10 +1,7 @@
 <template>
   <div class="vm-filter">
     <div v-for="block in $store.getters.items" :key="block.ID">
-      <block-checkbox
-        v-if="block.PROPERTY_TYPE === 'S'"
-        :block="block"
-      ></block-checkbox>
+      <block-checkbox :block="block"></block-checkbox>
     </div>
     <cancel-button></cancel-button>
   </div>
