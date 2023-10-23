@@ -134,7 +134,7 @@ export default {
 <style>
 .vm-filter-block {
   min-width: 100px;
-  margin-right: 12px;
+  margin: 0 12px 12px 0;
   position: relative;
 }
 .vm-filter-block.vm-filter-block--animate,
