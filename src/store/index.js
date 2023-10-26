@@ -11,21 +11,37 @@ export default createStore({
       ) {
         const items = state.bxResponse.ITEMS;
         const a = Object.values(items).filter((item) => {
-          if (item.PROPERTY_TYPE === 'L') {
-            if (
-              typeof item.VALUES === 'object' &&
-              item.VALUES.length === undefined
-            ) {
-              return true;
-            } else if (
-              typeof item.VALUES === 'object' &&
-              item.VALUES.length === 0
-            ) {
-              return false;
-            }
+          if (
+            item.PROPERTY_TYPE === 'L' &&
+            typeof item.VALUES === 'object' &&
+            item.VALUES.length === undefined
+          ) {
+            return true;
           }
+          return false;
         });
         return a.length ? a : [];
+      }
+    },
+    checkedCount(state) {
+      if (
+        state.bxResponse &&
+        state.bxResponse.ITEMS &&
+        typeof state.bxResponse.ITEMS === 'object'
+      ) {
+        const items = state.bxResponse.ITEMS;
+        const a = Object.values(items).filter((item) => {
+          if (
+            item.PROPERTY_TYPE === 'L' &&
+            typeof item.VALUES === 'object' &&
+            item.VALUES.length === undefined &&
+            Object.values(item.VALUES).find((value) => value.CHECKED)
+          ) {
+            return true;
+          }
+          return false;
+        });
+        return a.length;
       }
     },
     formData(state) {

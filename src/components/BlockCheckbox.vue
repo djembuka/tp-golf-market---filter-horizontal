@@ -72,12 +72,9 @@ export default {
   props: ['block'],
   methods: {
     getCount() {
-      return Object.values(this.block.VALUES).reduce((acc, cur) => {
-        if (cur.CHECKED && cur.ELEMENT_COUNT) {
-          return acc + Number(cur.ELEMENT_COUNT);
-        }
-        return acc;
-      }, 0);
+      return Object.values(this.block.VALUES).filter(
+        (value) => value.CHECKED && value.ELEMENT_COUNT
+      ).length;
     },
     drop() {
       if (this.block.dropdown) {

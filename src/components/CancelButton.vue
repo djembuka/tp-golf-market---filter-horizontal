@@ -1,5 +1,9 @@
 <template>
-  <div class="vm-filter-block__cancel" @click.prevent="clear">
+  <div
+    class="vm-filter-block__cancel"
+    @click.prevent="clear"
+    v-if="$store.getters.checkedCount"
+  >
     Очистить фильтры
   </div>
 </template>
