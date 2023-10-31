@@ -42,6 +42,11 @@ export default {
 <style>
 .vm-filter-checkbox {
   --primary-color: #000;
+  margin-bottom: 11px;
+}
+.vm-filter-checkbox label {
+  margin-bottom: 0;
+  display: block;
 }
 .vm-filter-checkbox--disabled {
   opacity: 0.3;
@@ -59,12 +64,14 @@ export default {
   position: relative;
   padding-left: 35px;
   cursor: pointer;
-  display: inline-block;
-  height: 25px;
+  display: flex;
+  align-items: center;
+  height: 20px;
   line-height: 1.2;
-  font-size: 1rem;
+  font-size: 12.4px;
   font-weight: normal;
   user-select: none;
+  color: var(--primary-color);
 }
 
 .vm-filter-checkbox [type='checkbox']:checked + span {
@@ -79,7 +86,6 @@ export default {
   width: 18px;
   height: 18px;
   z-index: 0;
-  border: 2px solid #5a5a5a;
   border-radius: 1px;
   margin-top: 3px;
   -webkit-transition: 0.2s;
@@ -113,10 +119,6 @@ export default {
   border-bottom: 2px solid rgba(0, 0, 0, 0.42);
 }
 
-.vm-filter-checkbox [type='checkbox'].filled-in + span:after {
-  border-radius: 2px;
-}
-
 .vm-filter-checkbox [type='checkbox'].filled-in + span:before,
 .vm-filter-checkbox [type='checkbox'].filled-in + span:after {
   content: '';
@@ -141,37 +143,37 @@ export default {
   transform-origin: 100% 100%;
 }
 
-.vm-filter-checkbox [type='checkbox'].filled-in:not(:checked) + span:after {
+.vm-filter-checkbox [type='checkbox'].filled-in + span:after {
   height: 20px;
   width: 20px;
-  background-color: transparent;
-  border: 2px solid #5a5a5a;
+  background-color: #ededed;
   top: 0px;
   z-index: 0;
 }
 
+.vm-filter-checkbox
+  [type='checkbox'].filled-in:not(:checked):hover
+  + span:after {
+  background-color: var(--primary-color);
+}
+
 .vm-filter-checkbox [type='checkbox'].filled-in:checked + span:before {
-  top: 0;
-  left: 1px;
+  top: 1px;
+  left: 2px;
   width: 8px;
-  height: 13px;
+  height: 10px;
   border-top: 2px solid transparent;
   border-left: 2px solid transparent;
   border-right: 2px solid #fff;
   border-bottom: 2px solid #fff;
-  -webkit-transform: rotateZ(37deg);
-  transform: rotateZ(37deg);
+  -webkit-transform: rotateZ(40deg);
+  transform: rotateZ(40deg);
   -webkit-transform-origin: 100% 100%;
   transform-origin: 100% 100%;
 }
 
 .vm-filter-checkbox [type='checkbox'].filled-in:checked + span:after {
-  top: 0;
-  width: 20px;
-  height: 20px;
-  border: 2px solid var(--primary-color);
   background-color: var(--primary-color);
-  z-index: 0;
 }
 
 .vm-filter-checkbox
