@@ -9,7 +9,7 @@
     <div class="vm-filter-block__head" @click="drop()">
       <span
         >{{ block.NAME }}
-        <span v-html="getCount() ? `(${getCount()})` : ''"></span
+        <span v-html="getCount() ? `<b>${getCount()}</b>` : ''"></span
       ></span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
