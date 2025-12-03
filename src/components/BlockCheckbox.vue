@@ -143,10 +143,10 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 12px;
+  padding: 12px 16px;
   background-color: #f7f7f7;
   color: #000000;
-  font-size: 0.88rem;
+  font-size: 14px;
   transition: background-color 0.3s ease, color 0.3s ease;
   -webkit-transition: background-color 0.3s ease, color 0.3s ease;
   cursor: pointer;
