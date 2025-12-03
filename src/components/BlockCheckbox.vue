@@ -7,7 +7,7 @@
     }"
   >
     <div class="vm-filter-block__head" @click="drop()">
-      <span
+      <span class="vm-filter-block__head-content"
         >{{ block.NAME }}
         <span v-html="getCount() ? `<b>${getCount()}</b>` : ''"></span
       ></span>
@@ -133,17 +133,22 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 12px 16px;
-  background-color: #f7f7f7;
+  background-color: #fafafa;
   color: #000000;
   font-size: 14px;
   transition: background-color 0.3s ease, color 0.3s ease;
   -webkit-transition: background-color 0.3s ease, color 0.3s ease;
   cursor: pointer;
   user-select: none;
+  border-radius: 4px;
 }
 .vm-filter-block__head:hover {
   background-color: #000;
   color: #fff;
+}
+.vm-filter-block__head-content {
+  display: flex;
+  gap: 8px;
 }
 .vm-filter-block.vm-filter-block--dropdown .vm-filter-block__head svg {
   -webkit-transform: rotate(180deg);
