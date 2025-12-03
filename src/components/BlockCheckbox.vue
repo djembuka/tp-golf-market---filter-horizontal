@@ -11,20 +11,7 @@
         >{{ block.NAME }}
         <span v-html="getCount() ? `<b>${getCount()}</b>` : ''"></span
       ></span>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        viewBox="0 0 16 16"
-      >
-        <g transform="translate(16 16) rotate(180)">
-          <circle cx="8" cy="8" r="8" transform="translate(0 0)" fill="#fff" />
-          <path
-            d="M3.512,0a.5.5,0,0,0-.355.147L.147,3.157a.5.5,0,1,0,.709.709L3.512,1.211,6.167,3.866a.5.5,0,0,0,.709-.709L3.867.147A.5.5,0,0,0,3.512,0Z"
-            transform="translate(4.461 5.23)"
-          />
-        </g>
-      </svg>
+      <IconArrow />
     </div>
     <div class="vm-filter-block__dropdown">
       <div class="vm-filter-block__body">
@@ -60,6 +47,7 @@
 
 <script>
 import ElementCheckbox from './ElementCheckbox.vue';
+import IconArrow from './IconArrow.vue';
 
 export default {
   name: 'BlockCheckbox',
@@ -124,6 +112,7 @@ export default {
   },
   components: {
     ElementCheckbox,
+    IconArrow,
   },
 };
 </script>
