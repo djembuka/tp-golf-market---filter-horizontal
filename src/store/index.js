@@ -108,6 +108,33 @@ export default createStore({
         response,
         result;
 
+      // for local dev
+      if (!window.BX) {
+        if (!state.bxResponse) {
+          response = await fetch('/response.json');
+          result = await response.json();
+
+          commit('bxResponse', {
+            obj: result,
+          });
+        } else {
+          response = await fetch('/response-checked.json');
+          result = await response.json();
+
+          commit('changeBxResponse', {
+            name: 'ELEMENT_COUNT',
+            value: result.ELEMENT_COUNT,
+          });
+
+          commit('changeBxResponse', {
+            name: 'SEF_SET_FILTER_URL',
+            value: result.SEF_SET_FILTER_URL,
+          });
+
+          commit('changeBxResponseDisabled', result);
+        }
+      }
+
       setTimeout(() => {
         if (!response) {
           controller.abort();
