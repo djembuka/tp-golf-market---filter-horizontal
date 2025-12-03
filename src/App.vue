@@ -51,5 +51,13 @@ export default {
 .vm-filter {
   display: flex;
   flex-wrap: wrap;
+  gap: 8px 16px;
+}
+@media (max-width: 767px) {
+  .vm-filter {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 5px;
+  }
 }
 </style>

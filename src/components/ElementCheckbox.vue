@@ -42,7 +42,7 @@ export default {
 <style>
 .vm-filter-checkbox {
   --primary-color: #000;
-  margin-bottom: 11px;
+  padding: 8px;
 }
 .vm-filter-checkbox label {
   margin-bottom: 0;
@@ -62,13 +62,13 @@ export default {
 
 .vm-filter-checkbox [type='checkbox'] + span {
   position: relative;
-  padding-left: 35px;
+  padding-left: 26px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  height: 20px;
+  height: 16px;
   line-height: 1.2;
-  font-size: 12.4px;
+  font-size: 12px;
   font-weight: normal;
   user-select: none;
   color: var(--primary-color);
@@ -144,9 +144,11 @@ export default {
 }
 
 .vm-filter-checkbox [type='checkbox'].filled-in + span:after {
-  height: 20px;
-  width: 20px;
-  background-color: #ededed;
+  height: 16px;
+  width: 16px;
+  border-radius: 2px;
+  border: 1px solid var(--base-grey-200, #dfdfdf);
+  background: var(--base-white, #fff);
   top: 0px;
   z-index: 0;
 }
@@ -158,8 +160,8 @@ export default {
 }
 
 .vm-filter-checkbox [type='checkbox'].filled-in:checked + span:before {
-  top: 1px;
-  left: 2px;
+  top: -1px;
+  left: 0px;
   width: 8px;
   height: 10px;
   border-top: 2px solid transparent;
@@ -174,6 +176,7 @@ export default {
 
 .vm-filter-checkbox [type='checkbox'].filled-in:checked + span:after {
   background-color: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 .vm-filter-checkbox

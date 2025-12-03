@@ -24,7 +24,7 @@
       </div>
       <a
         :href="$store.state.bxResponse.SEF_SET_FILTER_URL"
-        class="vm-filter-block__button btn btn-default btn-size-S"
+        class="vm-filter-block__button"
       >
         {{
           $store.state.lang && $store.state.lang.filter
@@ -34,9 +34,7 @@
         <span
           v-html="
             $store.state.bxResponse.ELEMENT_COUNT
-              ? `&nbsp;(${
-                  $store.state.bxResponse.ELEMENT_COUNT
-                } ${productWord()})`
+              ? `(${$store.state.bxResponse.ELEMENT_COUNT})`
               : ''
           "
         ></span>
@@ -120,7 +118,6 @@ export default {
 <style>
 .vm-filter-block {
   min-width: 100px;
-  margin: 0 12px 12px 0;
   position: relative;
 }
 .vm-filter-block.vm-filter-block--animate,
@@ -143,12 +140,13 @@ export default {
   border-radius: 4px;
 }
 .vm-filter-block__head:hover {
-  background-color: #000;
+  background-color: #000000bb;
   color: #fff;
 }
 .vm-filter-block__head-content {
   display: flex;
   gap: 8px;
+  white-space: nowrap;
 }
 .vm-filter-block.vm-filter-block--dropdown .vm-filter-block__head svg {
   -webkit-transform: rotate(180deg);
@@ -166,7 +164,7 @@ export default {
   border-radius: 3px;
   overflow: hidden;
   box-shadow: 0px 12px 12px #0000000d;
-  padding: 16px;
+  padding: 8px;
   opacity: 0;
   -webkit-transition: all 0.2s linear;
   transition: all 0.2s linear;
@@ -184,7 +182,7 @@ export default {
   z-index: 8;
 }
 .vm-filter-block__body {
-  margin-bottom: 16px;
+  margin-bottom: 8px;
   max-height: 180px;
   overflow-y: auto;
   scrollbar-color: #ccc #fff;
@@ -204,18 +202,33 @@ export default {
   background-color: #c0c0c0;
 }
 .vm-filter-block__button {
-  height: 40px;
   display: flex;
+  padding: 15px 32px;
   justify-content: center;
   align-items: center;
-  padding: 5px 12px;
-  background-color: #f7f7f7;
-  color: #000000;
-  font-size: 0.88rem;
+  gap: 10px;
+  align-self: stretch;
+  white-space: nowrap;
   cursor: pointer;
+  border-radius: 2px;
+  background: var(--twpx-button-colors-black, #000);
+  color: var(--twpx-button-text-color-hover, #fff);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  transition: opacity 0.3s ease;
+  -webkit-transition: opacity 0.3s ease;
 }
 .vm-filter-block__button:hover {
   background-color: #000;
   color: #fff;
+  opacity: 0.7;
+}
+a.vm-filter-block__button,
+a.vm-filter-block__button:hover,
+a.vm-filter-block__button:focus,
+a.vm-filter-block__button:active {
+  color: var(--twpx-button-text-color-hover, #fff);
 }
 </style>
