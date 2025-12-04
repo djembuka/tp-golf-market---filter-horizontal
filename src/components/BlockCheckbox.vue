@@ -8,19 +8,19 @@
   >
     <div class="vm-filter-block__head" @click="drop()">
       <span class="vm-filter-block__head-content"
-        >{{ block.NAME }}
+        >{{ block.NAME.toLowerCase() }}
         <span v-html="getCount() ? `<b>${getCount()}</b>` : ''"></span
       ></span>
       <IconArrow />
     </div>
     <div class="vm-filter-block__dropdown">
       <div class="vm-filter-block__body">
-        <element-checkbox
+        <checkbox-control
           v-for="item in Object.values(block.VALUES)"
           :key="item.CONTROL_ID"
           :item="item"
           :blockId="block.ID"
-        ></element-checkbox>
+        />
       </div>
       <a
         :href="$store.state.bxResponse.SEF_SET_FILTER_URL"
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import ElementCheckbox from './ElementCheckbox.vue';
+import CheckboxControl from './CheckboxControl.vue';
 import IconArrow from './IconArrow.vue';
 
 export default {
@@ -109,7 +109,7 @@ export default {
     },
   },
   components: {
-    ElementCheckbox,
+    CheckboxControl,
     IconArrow,
   },
 };
