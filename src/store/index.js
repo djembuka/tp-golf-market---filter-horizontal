@@ -107,7 +107,6 @@ export default createStore({
   },
   actions: {
     async change({ state, commit, getters }) {
-      commit('changeLoading', true);
 
       let controller = new AbortController(),
         response,
@@ -116,6 +115,8 @@ export default createStore({
       // for local dev
       if (!window.BX) {
         if (!state.bxResponse) {
+          commit('changeLoading', true);
+
           response = await fetch('/response.json');
           result = await response.json();
 
@@ -127,8 +128,6 @@ export default createStore({
         } else {
           response = await fetch('/response-checked.json');
           result = await response.json();
-
-          commit('changeLoading', false);
 
           commit('changeBxResponse', {
             name: 'ELEMENT_COUNT',
@@ -151,6 +150,8 @@ export default createStore({
       }, 20000);
 
       if (!state.bxResponse) {
+        commit('changeLoading', true);
+
         response = await fetch(
           document.getElementById('vmFilter').getAttribute('data-url') || '?ajax=y', {
             method: 'GET',
@@ -177,7 +178,6 @@ export default createStore({
         result = await response.json();
 
         if (result && typeof result === 'object') {
-          commit('changeLoading', false);
           
           commit('changeBxResponse', {
             name: 'ELEMENT_COUNT',
