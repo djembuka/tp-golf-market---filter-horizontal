@@ -1,5 +1,8 @@
 <template>
-    <div class="vm-filter-block__dropdown" v-if="block" :style="{left: block.rectX + 'px'}">
+    <div class="vm-filter-block__dropdown" v-if="block"
+        :style="{left: block.rectX + 'px'}"
+        :class="{'vm-filter-block__dropdown--dropdown': block.dropdown}"
+    >
       <div class="vm-filter-block__body">
         <checkbox-control
           v-for="item in Object.values(block.VALUES)"
@@ -57,6 +60,7 @@ export default {
   -webkit-transform: translateY(-10px);
   transform: translateY(-10px);
   background-color: #fff;
+  min-width: 215px;
   z-index: -1;
 }
 @media(min-width: 768px) {
@@ -64,7 +68,7 @@ export default {
         left: 0 !important;
     }
 }
-.vm-filter-block.vm-filter-block--dropdown .vm-filter-block__dropdown {
+.vm-filter-block__dropdown.vm-filter-block__dropdown--dropdown {
   -webkit-transform: translateY(0);
   transform: translateY(0);
   opacity: 1;
@@ -127,6 +131,9 @@ a.vm-filter-block__button:active {
     display: none;
 }
 @media(max-width: 767px) {
+    .vm-filter-block > .vm-filter-block__dropdown {
+        display: none;
+    }
     .vm-filter > .vm-filter-block__dropdown {
         display: block;
         top: 100%;

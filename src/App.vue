@@ -1,6 +1,6 @@
 <template>
   <div class="vm-filter">
-    <div class="vm-filter-scroll">
+    <div class="vm-filter-scroll" ref="fscroll">
       <block-checkbox v-for="block in $store.getters.items"
         :key="block.ID"
         :block="block" 
@@ -30,6 +30,44 @@ export default {
       return block || null;
     }
   },
+  methods: {
+    hideDropdowns(e) {
+      if (window.matchMedia("(width <= 767px)").matches) {
+        //mobile
+        if (
+          !e.target.classList.contains('vm-filter-block__dropdown') &&
+          !e.target.closest('.vm-filter-block__dropdown')
+        ) {
+          const active = this.$store.getters.items.find(i => i.dropdown && !i.animate);
+
+          if (active) {
+            this.$store.commit('changeBxResponseItem', {
+              block: active,
+              name: 'dropdown',
+              value: false,
+            });
+          }
+        }
+      } else {
+        //desktop
+        if (
+          !e.target.classList.contains('vm-filter-block') &&
+          !e.target.closest('.vm-filter-block')
+        ) {
+          this.$store.getters.items.forEach((block) => {
+            this.$store.commit('changeBxResponseItem', {
+              block,
+              name: 'dropdown',
+              value: false,
+            });
+          });
+        }
+      }
+    }
+  },
+  beforeUnmount() {
+    window.document.removeEventListener('click', this.hideDropdowns);
+  },
   mounted() {
     //bx data
     this.$store.dispatch('change');
@@ -42,18 +80,11 @@ export default {
       }
     }, 1000);
     //hide event
-    window.document.addEventListener('click', (e) => {
-      if (
-        !e.target.classList.contains('vm-filter-block') &&
-        !e.target.closest('.vm-filter-block')
-      ) {
-        this.$store.getters.items.forEach((block) => {
-          this.$store.commit('changeBxResponseItem', {
-            block,
-            name: 'dropdown',
-            value: false,
-          });
-        });
+    window.document.addEventListener('click', this.hideDropdowns);
+
+    this.$refs.fscroll.addEventListener('scroll', () => {
+      if (this.activeBlock) {
+        this.$store.commit('changeBxResponseItem', {block: this.activeBlock, name: 'dropdown', value: false});
       }
     });
   },

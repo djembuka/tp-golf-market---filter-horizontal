@@ -37,42 +37,47 @@ export default {
         (value) => value.CHECKED && value.ELEMENT_COUNT
       ).length;
     },
+    setProp(block, name, value) {
+      this.$store.commit('changeBxResponseItem', {block, name, value});
+    },
     drop() {
       if (this.block.dropdown) {
         //hide
-        this.$store.commit('changeBxResponseItem', {
-          block: this.block,
-          name: 'dropdown',
-          value: false,
-        });
+        this.setProp(this.block, 'dropdown', false);
         this.animate = true;
+        this.setProp(this.block, 'animate', true);
+
         setTimeout(() => {
           this.animate = false;
+          this.setProp(this.block, 'animate', false);
         }, 200);
       } else {
         //open
         Object.values(this.$store.state.bxResponse.ITEMS).forEach((block) => {
-          this.$store.commit('changeBxResponseItem', {
-            block,
-            name: 'dropdown',
-            value: false,
-          });
+          this.setProp(block, 'dropdown', false);
         });
 
-        this.$store.commit('changeBxResponseItem', {
-          block: this.block,
-          name: 'dropdown',
-          value: true,
-        });
+        this.setProp(this.block, 'dropdown', true);
+        this.animate = true;
+        this.setProp(this.block, 'animate', true);
+
+        setTimeout(() => {
+          this.animate = false;
+          this.setProp(this.block, 'animate', false);
+        }, 200);
 
         // compute coords
-        const rect = this.$refs.fblock.getBoundingClientRect();
-        this.$store.commit('changeBxResponseItem', {
-          block: this.block,
-          name: 'rectX',
-          value: Math.round(rect.x),
-        });
+        this.setProp(this.block, 'rectX', Math.round(this.computeCoords()));
       }
+    },
+    computeCoords() {
+      const rect = this.$refs.fblock.getBoundingClientRect();
+      const catalogSection = document.querySelector('.b-catalog-section');
+      let csRect = {x:0};
+      if (catalogSection) {
+        csRect.getBoundingClientRect();
+      }
+      return rect.x - csRect.x;
     },
     productWord() {
       if (this.$store.state.lang && this.$store.state.lang.products) {
