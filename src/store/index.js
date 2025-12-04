@@ -81,10 +81,8 @@ export default createStore({
     changeBxResponse(state, { name, value }) {
       state.bxResponse[name] = value;
     },
-    changeBxResponseItem(state, { id, name, value }) {
-      Object.values(state.bxResponse.ITEMS).find((item) => item.ID === id)[
-        name
-      ] = value;
+    changeBxResponseItem(state, { block, name, value }) {
+      block[name] = value;
     },
     changeBxResponseDisabled(state, fetchResult) {
       const disabled = {};

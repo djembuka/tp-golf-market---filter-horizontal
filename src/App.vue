@@ -1,20 +1,25 @@
 <template>
   <div class="vm-filter">
-    <block-checkbox v-for="block in $store.getters.items"
-      :key="block.ID"
-      :block="block" 
-    />
-    <cancel-button></cancel-button>
+    <div class="vm-filter-scroll">
+      <block-checkbox v-for="block in $store.getters.items"
+        :key="block.ID"
+        :block="block" 
+      />
+      <cancel-button></cancel-button>
+    </div>
+    <block-dropdown v-if="$store.getters.items" :block="$store.getters.items[0]" />
   </div>
 </template>
 
 <script>
+import BlockDropdown from './components/BlockDropdown.vue';
 import BlockCheckbox from './components/BlockCheckbox.vue';
 import CancelButton from './components/CancelButton.vue';
 
 export default {
   name: 'App',
   components: {
+    BlockDropdown,
     BlockCheckbox,
     CancelButton,
   },
@@ -37,7 +42,7 @@ export default {
       ) {
         this.$store.getters.items.forEach((block) => {
           this.$store.commit('changeBxResponseItem', {
-            id: block.ID,
+            block,
             name: 'dropdown',
             value: false,
           });
@@ -50,12 +55,15 @@ export default {
 
 <style>
 .vm-filter {
+  position: relative;
+}
+.vm-filter-scroll {
   display: flex;
   flex-wrap: wrap;
   gap: 8px 16px;
 }
 @media (max-width: 767px) {
-  .vm-filter {
+  .vm-filter-scroll {
     flex-wrap: nowrap;
     overflow-x: auto;
     padding-bottom: 5px;
