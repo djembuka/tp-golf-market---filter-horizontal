@@ -1,5 +1,5 @@
 <template>
-    <div class="vm-filter-block__dropdown">
+    <div class="vm-filter-block__dropdown" v-if="block">
       <div class="vm-filter-block__body">
         <checkbox-control
           v-for="item in Object.values(block.VALUES)"

@@ -7,7 +7,7 @@
       />
       <cancel-button></cancel-button>
     </div>
-    <block-dropdown v-if="$store.getters.items" :block="$store.getters.items[0]" />
+    <block-dropdown v-if="$store.getters.items" :block="activeBlock" />
   </div>
 </template>
 
@@ -22,6 +22,13 @@ export default {
     BlockDropdown,
     BlockCheckbox,
     CancelButton,
+  },
+  computed: {
+    activeBlock() {
+      if (!this.$store.getters.items) return null
+      const block = this.$store.getters.items.find(i => i.dropdown);
+      return block || null;
+    }
   },
   mounted() {
     //bx data
