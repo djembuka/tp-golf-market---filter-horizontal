@@ -5,15 +5,18 @@
       'vm-filter-checkbox--disabled': item.DISABLED,
     }"
   >
-    <label
-      ><input
+    <label>
+      
+      <input
         type="checkbox"
         :value="item.HTML_VALUE"
         :name="item.CONTROL_NAME"
         v-model="checked"
         class="filled-in" />
-      <span v-html="item.VALUE"></span
-    ></label>
+
+      <span v-html="item.VALUE"></span>
+    
+    </label>
   </div>
 </template>
 
@@ -42,6 +45,7 @@ export default {
 <style>
 .vm-filter-checkbox {
   --primary-color: #000;
+  --primary-color-hover: #000000bb;
   padding: 8px;
 }
 .vm-filter-checkbox label {
@@ -147,16 +151,14 @@ export default {
   height: 16px;
   width: 16px;
   border-radius: 2px;
-  border: 1px solid var(--base-grey-200, #dfdfdf);
+  border: 1px solid var(--base-grey-200, #DFDFDF);
   background: var(--base-white, #fff);
   top: 0px;
   z-index: 0;
 }
 
 .vm-filter-checkbox
-  [type='checkbox'].filled-in:not(:checked):hover
-  + span:after {
-  background-color: var(--primary-color);
+  [type='checkbox'].filled-in:not(:checked):hover  + span:after {
   border-color: var(--primary-color);
 }
 
@@ -178,6 +180,11 @@ export default {
 .vm-filter-checkbox [type='checkbox'].filled-in:checked + span:after {
   background-color: var(--primary-color);
   border-color: var(--primary-color);
+}
+
+.vm-filter-checkbox [type='checkbox'].filled-in:checked:hover + span:after {
+  background-color: var(--primary-color-hover);
+  border-color: var(--primary-color-hover);
 }
 
 .vm-filter-checkbox
