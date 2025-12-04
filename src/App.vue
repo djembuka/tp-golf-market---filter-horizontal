@@ -94,6 +94,7 @@ export default {
 <style>
 .vm-filter {
   position: relative;
+  padding: 16px;
 }
 .vm-filter-scroll {
   display: flex;
