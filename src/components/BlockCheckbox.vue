@@ -139,8 +139,8 @@ export default {
   -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
 }
-.vm-filter-block__head span span {
+.vm-filter-block__head-content span {
   display: inline-block;
-  min-width: 50px;
+  min-width: 26px;
 }
 </style>
