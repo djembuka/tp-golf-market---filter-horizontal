@@ -75,7 +75,7 @@ export default {
       const catalogSection = document.querySelector('.b-catalog-section');
       let csRect = {x:0};
       if (catalogSection) {
-        csRect.getBoundingClientRect();
+        csRect = catalogSection.getBoundingClientRect();
       }
       return rect.x - csRect.x;
     },
