@@ -1,7 +1,9 @@
 import { createStore } from 'vuex';
 
 export default createStore({
-  state: {},
+  state: {
+    loading: true,
+  },
   getters: {
     items(state) {
       if (
@@ -66,6 +68,9 @@ export default createStore({
     },
   },
   mutations: {
+    changeLoading(state, value) {
+      state.loading = value;
+    },
     check(state, { id, checked, blockId }) {
       const block = Object.values(state.bxResponse.ITEMS).find(
         (item) => item.ID === blockId
@@ -102,6 +107,8 @@ export default createStore({
   },
   actions: {
     async change({ state, commit, getters }) {
+      commit('changeLoading', true);
+
       let controller = new AbortController(),
         response,
         result;
@@ -112,12 +119,16 @@ export default createStore({
           response = await fetch('/response.json');
           result = await response.json();
 
+          commit('changeLoading', false);
+
           commit('bxResponse', {
             obj: result,
           });
         } else {
           response = await fetch('/response-checked.json');
           result = await response.json();
+
+          commit('changeLoading', false);
 
           commit('changeBxResponse', {
             name: 'ELEMENT_COUNT',
@@ -141,9 +152,7 @@ export default createStore({
 
       if (!state.bxResponse) {
         response = await fetch(
-          document.getElementById('vmFilter').getAttribute('data-url') ||
-            '?ajax=y',
-          {
+          document.getElementById('vmFilter').getAttribute('data-url') || '?ajax=y', {
             method: 'GET',
             signal: controller.signal,
           }
@@ -152,14 +161,14 @@ export default createStore({
         result = await response.json();
 
         if (result && typeof result === 'object') {
+          commit('changeLoading', false);
+
           commit('bxResponse', {
             obj: result,
           });
         }
       } else {
-        response = await fetch(
-          `?ajax=y${state.bxResponse ? '&' + getters.formData : ''}`,
-          {
+        response = await fetch(`?ajax=y${state.bxResponse ? '&' + getters.formData : ''}`, {
             method: 'GET',
             signal: controller.signal,
           }
@@ -168,6 +177,8 @@ export default createStore({
         result = await response.json();
 
         if (result && typeof result === 'object') {
+          commit('changeLoading', false);
+          
           commit('changeBxResponse', {
             name: 'ELEMENT_COUNT',
             value: result.ELEMENT_COUNT,

@@ -1,5 +1,6 @@
 <template>
-  <div class="vm-filter">
+  <placeholder-element v-if="loading" />
+  <div class="vm-filter" v-else>
     <div class="vm-filter-scroll" ref="fscroll">
       <block-checkbox v-for="block in $store.getters.items"
         :key="block.ID"
@@ -12,6 +13,7 @@
 </template>
 
 <script>
+import PlaceholderElement from './components/PlaceholderElement.vue';
 import BlockDropdown from './components/BlockDropdown.vue';
 import BlockCheckbox from './components/BlockCheckbox.vue';
 import CancelButton from './components/CancelButton.vue';
@@ -19,6 +21,7 @@ import CancelButton from './components/CancelButton.vue';
 export default {
   name: 'App',
   components: {
+    PlaceholderElement,
     BlockDropdown,
     BlockCheckbox,
     CancelButton,
@@ -28,6 +31,9 @@ export default {
       if (!this.$store.getters.items) return null
       const block = this.$store.getters.items.find(i => i.dropdown);
       return block || null;
+    },
+    loading() {
+      return this.$store.state.loading;
     }
   },
   methods: {
@@ -65,6 +71,22 @@ export default {
       }
     }
   },
+  watch: {
+    loading(newVal) {
+      if (newVal === false) {
+        //hide event
+        window.document.addEventListener('click', this.hideDropdowns);
+
+        this.$nextTick(() => {
+          this.$refs.fscroll.addEventListener('scroll', () => {
+            if (this.activeBlock) {
+              this.$store.commit('changeBxResponseItem', {block: this.activeBlock, name: 'dropdown', value: false});
+            }
+          });
+        });
+      }
+    }
+  },
   beforeUnmount() {
     window.document.removeEventListener('click', this.hideDropdowns);
   },
@@ -79,14 +101,6 @@ export default {
         });
       }
     }, 1000);
-    //hide event
-    window.document.addEventListener('click', this.hideDropdowns);
-
-    this.$refs.fscroll.addEventListener('scroll', () => {
-      if (this.activeBlock) {
-        this.$store.commit('changeBxResponseItem', {block: this.activeBlock, name: 'dropdown', value: false});
-      }
-    });
   },
 };
 </script>
@@ -94,7 +108,7 @@ export default {
 <style>
 .vm-filter {
   position: relative;
-  padding: 16px;
+  padding: 16px 0;
 }
 .vm-filter-scroll {
   display: flex;
