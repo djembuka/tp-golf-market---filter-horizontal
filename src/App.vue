@@ -1,8 +1,9 @@
 <template>
   <div class="vm-filter">
-    <div v-for="block in $store.getters.items" :key="block.ID">
-      <block-checkbox :block="block"></block-checkbox>
-    </div>
+    <block-checkbox v-for="block in $store.getters.items"
+      :key="block.ID"
+      :block="block" 
+    />
     <cancel-button></cancel-button>
   </div>
 </template>
