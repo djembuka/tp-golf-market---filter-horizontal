@@ -157,6 +157,7 @@ export default {
   [type='checkbox'].filled-in:not(:checked):hover
   + span:after {
   background-color: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 .vm-filter-checkbox [type='checkbox'].filled-in:checked + span:before {
