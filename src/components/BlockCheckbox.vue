@@ -5,6 +5,7 @@
       'vm-filter-block--animate': animate,
       'vm-filter-block--dropdown': block.dropdown,
     }"
+    ref="fblock"
   >
     <div class="vm-filter-block__head" @click="drop()">
       <span class="vm-filter-block__head-content"
@@ -62,6 +63,14 @@ export default {
           block: this.block,
           name: 'dropdown',
           value: true,
+        });
+
+        // compute coords
+        const rect = this.$refs.fblock.getBoundingClientRect();
+        this.$store.commit('changeBxResponseItem', {
+          block: this.block,
+          name: 'rectX',
+          value: Math.round(rect.x),
         });
       }
     },
