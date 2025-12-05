@@ -11,6 +11,8 @@
     </div>
     <block-dropdown v-if="$store.getters.items" :block="activeBlock" />
   </div>
+
+  <price-range />
 </template>
 
 <script>
@@ -19,6 +21,8 @@ import BlockDropdown from './components/BlockDropdown.vue';
 import BlockCheckbox from './components/BlockCheckbox.vue';
 import CancelButton from './components/CancelButton.vue';
 
+import PriceRange from './components/PriceRange.vue';
+
 export default {
   name: 'App',
   components: {
@@ -26,6 +30,7 @@ export default {
     BlockDropdown,
     BlockCheckbox,
     CancelButton,
+    PriceRange,
   },
   computed: {
     activeBlock() {
