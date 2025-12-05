@@ -1,46 +1,50 @@
 <template>
-    <div class="vm-filter-block__dropdown" v-if="block"
-        :style="{left: block.rectX + 'px'}"
-        :class="{'vm-filter-block__dropdown--dropdown': block.dropdown}"
-    >
-      <div class="vm-filter-block__body">
-        <checkbox-control
-          v-for="item in Object.values(block.VALUES)"
-          :key="item.CONTROL_ID"
-          :item="item"
-          :blockId="block.ID"
-        />
-      </div>
-      <a
-        :href="$store.state.bxResponse.SEF_SET_FILTER_URL"
-        class="vm-filter-block__button"
-      >
-        {{
-          $store.state.lang && $store.state.lang.filter
-            ? $store.state.lang.filter
-            : ''
-        }}
-        <span
-          v-html="
-            $store.state.bxResponse.ELEMENT_COUNT
-              ? `(${$store.state.bxResponse.ELEMENT_COUNT})`
-              : ''
-          "
-        ></span>
-      </a>
+  <div
+    class="vm-filter-block__dropdown"
+    v-if="block"
+    :style="{ left: block.rectX + 'px' }"
+    :class="{ 'vm-filter-block__dropdown--dropdown': block.dropdown }"
+  >
+    <div class="vm-filter-block__body">
+      <component :is="componentName(block)" :block="block" />
     </div>
+    <a
+      :href="$store.state.bxResponse.SEF_SET_FILTER_URL"
+      class="vm-filter-block__button"
+    >
+      {{
+        $store.state.lang && $store.state.lang.filter
+          ? $store.state.lang.filter
+          : ''
+      }}
+      <span
+        v-html="
+          $store.state.bxResponse.ELEMENT_COUNT
+            ? `(${$store.state.bxResponse.ELEMENT_COUNT})`
+            : ''
+        "
+      ></span>
+    </a>
+  </div>
 </template>
 
 <script>
-import CheckboxControl from './CheckboxControl.vue';
+import BlockDropdownCheckboxes from './BlockDropdownCheckboxes.vue';
+import BlockDropdownRange from './BlockDropdownRange.vue';
 
 export default {
   name: 'BlockDropdown',
   props: ['block'],
   components: {
-    CheckboxControl
-  }
-}
+    BlockDropdownCheckboxes,
+    BlockDropdownRange,
+  },
+  methods: {
+    componentName(block) {
+      return `BlockDropdown${block.PRICE ? 'Range' : 'Checkboxes'}`;
+    },
+  },
+};
 </script>
 
 <style>
@@ -63,10 +67,10 @@ export default {
   min-width: 215px;
   z-index: -1;
 }
-@media(min-width: 768px) {
-    .vm-filter-block__dropdown {
-        left: 0 !important;
-    }
+@media (min-width: 768px) {
+  .vm-filter-block__dropdown {
+    left: 0 !important;
+  }
 }
 .vm-filter-block__dropdown.vm-filter-block__dropdown--dropdown {
   -webkit-transform: translateY(0);
@@ -128,17 +132,17 @@ a.vm-filter-block__button:active {
 
 /*Mobile dropdown*/
 .vm-filter > .vm-filter-block__dropdown {
-    display: none;
+  display: none;
 }
-@media(max-width: 767px) {
-    .vm-filter-block > .vm-filter-block__dropdown {
-        display: none;
-    }
-    .vm-filter > .vm-filter-block__dropdown {
-        display: block;
-        top: 100%;
-        opacity: 1;
-        z-index: 10;
-    }
+@media (max-width: 767px) {
+  .vm-filter-block > .vm-filter-block__dropdown {
+    display: none;
+  }
+  .vm-filter > .vm-filter-block__dropdown {
+    display: block;
+    top: 100%;
+    opacity: 1;
+    z-index: 10;
+  }
 }
 </style>
