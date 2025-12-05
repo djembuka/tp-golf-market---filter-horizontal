@@ -2,9 +2,10 @@
   <placeholder-element v-if="loading" />
   <div class="vm-filter" v-else>
     <div class="vm-filter-scroll" ref="fscroll">
-      <block-checkbox v-for="block in $store.getters.items"
+      <block-checkbox
+        v-for="block in $store.getters.items"
         :key="block.ID"
-        :block="block" 
+        :block="block"
       />
       <cancel-button></cancel-button>
     </div>
@@ -28,23 +29,25 @@ export default {
   },
   computed: {
     activeBlock() {
-      if (!this.$store.getters.items) return null
-      const block = this.$store.getters.items.find(i => i.dropdown);
+      if (!this.$store.getters.items) return null;
+      const block = this.$store.getters.items.find((i) => i.dropdown);
       return block || null;
     },
     loading() {
       return this.$store.state.loading;
-    }
+    },
   },
   methods: {
     hideDropdowns(e) {
-      if (window.matchMedia("(width <= 767px)").matches) {
+      if (window.matchMedia('(width <= 767px)').matches) {
         //mobile
         if (
           !e.target.classList.contains('vm-filter-block__dropdown') &&
           !e.target.closest('.vm-filter-block__dropdown')
         ) {
-          const active = this.$store.getters.items.find(i => i.dropdown && !i.animate);
+          const active = this.$store.getters.items.find(
+            (i) => i.dropdown && !i.animate
+          );
 
           if (active) {
             this.$store.commit('changeBxResponseItem', {
@@ -69,7 +72,7 @@ export default {
           });
         }
       }
-    }
+    },
   },
   watch: {
     loading(newVal) {
@@ -80,12 +83,16 @@ export default {
         this.$nextTick(() => {
           this.$refs.fscroll.addEventListener('scroll', () => {
             if (this.activeBlock) {
-              this.$store.commit('changeBxResponseItem', {block: this.activeBlock, name: 'dropdown', value: false});
+              this.$store.commit('changeBxResponseItem', {
+                block: this.activeBlock,
+                name: 'dropdown',
+                value: false,
+              });
             }
           });
         });
       }
-    }
+    },
   },
   beforeUnmount() {
     window.document.removeEventListener('click', this.hideDropdowns);
@@ -116,6 +123,9 @@ export default {
   gap: 8px 16px;
 }
 @media (max-width: 767px) {
+  .vm-filter {
+    padding: 8px 0;
+  }
   .vm-filter-scroll {
     flex-wrap: nowrap;
     overflow-x: auto;
