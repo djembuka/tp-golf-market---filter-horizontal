@@ -3,7 +3,11 @@
     class="vm-filter-block__dropdown"
     v-if="block"
     :style="{ left: block.rectX + 'px' }"
-    :class="{ 'vm-filter-block__dropdown--dropdown': block.dropdown }"
+    :class="{
+      'vm-filter-block__dropdown--dropdown': block.dropdown,
+      'vm-filter-block__dropdown--range':
+        componentName(block) === 'BlockDropdownRange',
+    }"
   >
     <div class="vm-filter-block__body">
       <component :is="componentName(block)" :block="block" />
@@ -79,6 +83,11 @@ export default {
   pointer-events: auto;
   z-index: 8;
 }
+.vm-filter-block__dropdown.vm-filter-block__dropdown--range {
+  width: 450px;
+  border-radius: 16px;
+  padding: 16px 32px;
+}
 .vm-filter-block__body {
   margin-bottom: 8px;
   max-height: 180px;
@@ -143,6 +152,18 @@ a.vm-filter-block__button:active {
     top: 100%;
     opacity: 1;
     z-index: 10;
+  }
+  .vm-filter-block__dropdown.vm-filter-block__dropdown--range {
+    width: 320px;
+    border-radius: 16px;
+    padding: 8px;
+  }
+  .vm-filter-block__dropdown.vm-filter-block__dropdown--range .slr2-cf__inputs {
+    grid-template-columns: 1fr;
+  }
+  .vm-filter-block__dropdown.vm-filter-block__dropdown--range
+    .vm-filter-block__body {
+    max-height: 200px;
   }
 }
 </style>
