@@ -84,6 +84,7 @@ export default {
       default: 3000,
     },
   },
+  emits: ['slide'],
   computed: {
     modelFrom: {
       get() {
@@ -134,6 +135,8 @@ export default {
       if (Number(this.fromValue) > Number(this.toValue)) {
         this.fromValue = this.toValue;
       }
+
+      this.$emit('slide', { from: this.fromValue, to: this.toValue });
     },
     toSlide() {
       // const [from, to] = getParsed(fromSlider, toSlider);
@@ -144,6 +147,8 @@ export default {
       } else {
         this.toValue = this.fromValue;
       }
+
+      this.$emit('slide', { from: this.fromValue, to: this.toValue });
     },
   },
   mounted() {

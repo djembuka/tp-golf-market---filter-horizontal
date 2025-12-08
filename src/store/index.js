@@ -71,6 +71,10 @@ export default createStore({
                 dataObj[value.CONTROL_NAME] = value.HTML_VALUE;
               }
             });
+          } else if (item.PRICE) {
+            Object.values(item.VALUES).forEach((value) => {
+              dataObj[value.CONTROL_NAME] = value.FILTERED_VALUE;
+            });
           }
         });
 
@@ -94,6 +98,19 @@ export default createStore({
         (value) => value.CONTROL_ID === id
       );
       item.CHECKED = checked;
+    },
+    range(state, { blockId, from, to }) {
+      const block = Object.values(state.bxResponse.ITEMS).find(
+        (item) => item.ID === blockId
+      );
+      const min = Object.values(block.VALUES).find((value) =>
+        value.CONTROL_ID.includes('MIN')
+      );
+      const max = Object.values(block.VALUES).find((value) =>
+        value.CONTROL_ID.includes('MAX')
+      );
+      min.FILTERED_VALUE = from;
+      max.FILTERED_VALUE = to;
     },
     bxResponse(state, { obj }) {
       state.bxResponse = obj;
