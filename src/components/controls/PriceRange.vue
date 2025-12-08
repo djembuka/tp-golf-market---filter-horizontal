@@ -164,67 +164,6 @@ export default {
   grid-template-columns: 1fr 1fr;
   gap: 16px;
 }
-.slr2-cf__input {
-  position: relative;
-}
-.slr2-cf__input-label {
-  position: absolute;
-  top: 8px;
-  left: 16px;
-  font-family: 'Inter', Helvetica;
-  font-weight: 400;
-  color: rgba(64, 64, 64, 1);
-  font-size: 12px;
-  -webkit-transition: top 0.3s ease;
-  transition: top 0.3s ease;
-}
-.slr2-cf__input-control {
-  display: flex;
-  width: 100%;
-  height: 48px;
-  padding: 24px 16px 6px 16px;
-  align-items: center;
-  gap: 16px;
-  align-self: stretch;
-  border-radius: 4px;
-  border: 1px solid #f9f9f9;
-  background: #f9f9f9;
-  -webkit-transition: border-color 0.3s ease, background-color 0.3s ease;
-  transition: border-color 0.3s ease, background-color 0.3s ease;
-}
-input.slr2-cf__input-control {
-  font-size: 16px !important;
-}
-.slr2-cf__input-control:focus {
-  outline: none;
-  border-color: rgba(67, 66, 255, 1);
-  background: rgba(242, 242, 255, 1);
-}
-.slr2-cf__input-clear {
-  position: absolute;
-  top: 50%;
-  right: 16px;
-  transform: translateY(-50%);
-  cursor: pointer;
-  width: 15px;
-  height: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  -webkit-transition: opacity 0.3s ease;
-  transition: opacity 0.3s ease;
-  border-radius: 8px;
-  border: 1px solid #000;
-  z-index: -1;
-}
-.slr2-cf__input-clear svg {
-  pointer-events: none;
-}
-.slr2-cf__input--clearable .slr2-cf__input-clear {
-  opacity: 1;
-  z-index: 10;
-}
 /*Inputs End*/
 
 /*Range*/
