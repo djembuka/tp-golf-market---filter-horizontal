@@ -2,12 +2,12 @@
   <placeholder-element v-if="loading" />
   <div class="vm-filter" v-else>
     <div class="vm-filter-scroll" ref="fscroll">
-      <block-checkbox
+      <block-component
         v-for="block in $store.getters.prices"
         :key="block.ID"
         :block="block"
       />
-      <block-checkbox
+      <block-component
         v-for="block in $store.getters.items"
         :key="block.ID"
         :block="block"
@@ -24,7 +24,7 @@
 <script>
 import PlaceholderElement from './components/PlaceholderElement.vue';
 import BlockDropdown from './components/BlockDropdown.vue';
-import BlockCheckbox from './components/BlockCheckbox.vue';
+import BlockComponent from './components/BlockComponent.vue';
 import CancelButton from './components/CancelButton.vue';
 
 export default {
@@ -32,7 +32,7 @@ export default {
   components: {
     PlaceholderElement,
     BlockDropdown,
-    BlockCheckbox,
+    BlockComponent,
     CancelButton,
   },
   computed: {

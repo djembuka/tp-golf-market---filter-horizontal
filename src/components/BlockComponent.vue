@@ -23,7 +23,7 @@ import BlockDropdown from './BlockDropdown.vue';
 import IconArrow from './icons/IconArrow.vue';
 
 export default {
-  name: 'BlockCheckbox',
+  name: 'BlockComponent',
   data() {
     return {
       animate: false,
