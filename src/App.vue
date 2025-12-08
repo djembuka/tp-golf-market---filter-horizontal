@@ -14,7 +14,10 @@
       />
       <cancel-button></cancel-button>
     </div>
-    <block-dropdown v-if="$store.getters.items" :block="activeBlock" />
+    <block-dropdown
+      v-if="$store.getters.items || $store.getters.prices"
+      :block="activeBlock"
+    />
   </div>
 </template>
 
@@ -34,8 +37,14 @@ export default {
   },
   computed: {
     activeBlock() {
-      if (!this.$store.getters.items) return null;
-      const block = this.$store.getters.items.find((i) => i.dropdown);
+      if (!this.$store.getters.items && !this.$store.getters.prices)
+        return null;
+
+      const block = [
+        ...this.$store.getters.items,
+        ...this.$store.getters.prices,
+      ].find((i) => i.dropdown);
+
       return block || null;
     },
     loading() {
@@ -68,13 +77,15 @@ export default {
           !e.target.classList.contains('vm-filter-block') &&
           !e.target.closest('.vm-filter-block')
         ) {
-          this.$store.getters.items.forEach((block) => {
-            this.$store.commit('changeBxResponseItem', {
-              block,
-              name: 'dropdown',
-              value: false,
-            });
-          });
+          [...this.$store.getters.items, ...this.$store.getters.prices].forEach(
+            (block) => {
+              this.$store.commit('changeBxResponseItem', {
+                block,
+                name: 'dropdown',
+                value: false,
+              });
+            }
+          );
         }
       }
     },
