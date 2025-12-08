@@ -14,7 +14,7 @@ export default createStore({
         const items = state.bxResponse.ITEMS;
         const a = Object.values(items).filter((item) => {
           if (
-            (item.PROPERTY_TYPE === 'L' || item.PRICE === true) &&
+            item.PROPERTY_TYPE === 'L' &&
             typeof item.VALUES === 'object' &&
             item.VALUES.length === undefined
           ) {
@@ -24,6 +24,21 @@ export default createStore({
         });
         return a.length ? a : [];
       }
+    },
+    prices(state) {
+      if (
+        !state.bxResponse ||
+        !state.bxResponse.PRICES ||
+        !state.bxResponse.ITEMS
+      )
+        return [];
+
+      const keys = Object.keys(state.bxResponse.PRICES);
+      const items = state.bxResponse.ITEMS;
+
+      return keys.map((key) => {
+        return items[key];
+      });
     },
     checkedCount(state) {
       if (

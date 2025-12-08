@@ -3,6 +3,11 @@
   <div class="vm-filter" v-else>
     <div class="vm-filter-scroll" ref="fscroll">
       <block-checkbox
+        v-for="block in $store.getters.prices"
+        :key="block.ID"
+        :block="block"
+      />
+      <block-checkbox
         v-for="block in $store.getters.items"
         :key="block.ID"
         :block="block"
