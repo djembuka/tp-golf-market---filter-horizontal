@@ -4,14 +4,10 @@
       <price-range-input
         label="От"
         inputName="CF_PRICE_FROM"
-        :modelValue="fromValue"
+        v-model="modelFrom"
       />
 
-      <price-range-input
-        label="До"
-        inputName="CF_PRICE_TO"
-        :modelValue="toValue"
-      />
+      <price-range-input label="До" inputName="CF_PRICE_TO" v-model="modelTo" />
     </div>
 
     <div class="slr2-cf__sliders-control">
@@ -86,6 +82,26 @@ export default {
     to: {
       type: Number,
       default: 3000,
+    },
+  },
+  computed: {
+    modelFrom: {
+      get() {
+        return this.fromValue ?? 0;
+      },
+      set(val) {
+        this.fromValue = val ?? 0;
+        this.fromSlide();
+      },
+    },
+    modelTo: {
+      get() {
+        return this.toValue ?? 0;
+      },
+      set(val) {
+        this.toValue = val ?? 0;
+        this.toSlide();
+      },
     },
   },
   methods: {

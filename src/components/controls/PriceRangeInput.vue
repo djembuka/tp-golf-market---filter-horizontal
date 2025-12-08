@@ -11,7 +11,7 @@
       type="text"
       class="slr2-cf__input-control"
       :name="inputName"
-      v-model="displayValue"
+      v-model="value"
       @input="formatInputValue"
       @blur="blurInput"
       @focus="focusInput"
@@ -28,7 +28,6 @@ import IconClear from '../icons/IconClear.vue';
 export default {
   data() {
     return {
-      displayValue: '',
       clearable: false,
     };
   },
@@ -36,19 +35,33 @@ export default {
     IconClear,
   },
   props: ['label', 'inputName', 'modelValue'],
-  watch: {
-    modelValue(newVal) {
-      this.initValue(newVal);
+  emits: ['update:modelValue'],
+  // watch: {
+  //   modelValue(newVal) {
+  //     this.initValue(newVal);
+  //   },
+  // },
+  computed: {
+    value: {
+      get() {
+        return this.formatNumber(this.modelValue) ?? '';
+      },
+      set(val) {
+        return this.$emit(
+          'update:modelValue',
+          Number(String(val).replace(/\D/g, '')) || 0
+        );
+      },
     },
   },
   methods: {
     clear() {
-      this.displayValue = '';
+      this.value = '';
       this.$refs.input.focus();
     },
     focusInput() {
-      if (this.displayValue.trim() === '0' || this.displayValue === '') {
-        this.displayValue = '';
+      if (this.value.trim() === '0' || this.value === '') {
+        this.value = '';
         this.clearable = false;
       } else {
         this.clearable = true;
@@ -62,8 +75,8 @@ export default {
       );
     },
     blurInput() {
-      if (this.displayValue.trim() === '') {
-        this.displayValue = '0';
+      if (this.value.trim() === '') {
+        this.value = '0';
       }
 
       setTimeout(() => {
@@ -74,10 +87,11 @@ export default {
       const meta = document.querySelector('meta[name="viewport"]');
       meta.setAttribute('content', 'width=device-width, initial-scale=1.0');
     },
-    initValue(value) {
-      this.displayValue = this.formatNumber(String(value));
-    },
+    // initValue(value) {
+    //   this.displayValue = this.formatNumber(String(value));
+    // },
     formatNumber(value) {
+      value = String(value);
       // 1. Оставляем только цифры
       value = value.replace(/\D/g, '');
 
@@ -131,7 +145,7 @@ export default {
         0
       );
 
-      if (this.displayValue.trim() === '') {
+      if (this.value.trim() === '') {
         this.clearable = false;
       } else {
         this.clearable = true;
@@ -139,7 +153,7 @@ export default {
     },
   },
   mounted() {
-    this.initValue(this.modelValue);
+    // this.initValue(this.modelValue);
   },
 };
 </script>
