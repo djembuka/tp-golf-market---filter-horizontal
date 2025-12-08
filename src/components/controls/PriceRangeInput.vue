@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import IconClear from './IconClear.vue';
+import IconClear from '../icons/IconClear.vue';
 
 export default {
   data() {

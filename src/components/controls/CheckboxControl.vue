@@ -1,24 +1,28 @@
 <template>
-  <label :class="{
-    'vm-filter-checkbox': true,
-    'vm-filter-checkbox--disabled': item.DISABLED,
-  }">
-    
+  <label
+    :class="{
+      'vm-filter-checkbox': true,
+      'vm-filter-checkbox--disabled': item.DISABLED,
+    }"
+  >
     <input
       type="checkbox"
       :value="item.HTML_VALUE"
       :name="item.CONTROL_NAME"
-      v-model="checked" />
+      v-model="checked"
+    />
 
     <icon-checkbox />
 
-    <span class="vm-filter-checkbox__label" v-html="item.VALUE.toLowerCase()"></span>
-  
+    <span
+      class="vm-filter-checkbox__label"
+      v-html="item.VALUE.toLowerCase()"
+    ></span>
   </label>
 </template>
 
 <script>
-import IconCheckbox from './IconCheckbox.vue';
+import IconCheckbox from '../icons/IconCheckbox.vue';
 
 export default {
   data() {
@@ -39,8 +43,8 @@ export default {
     },
   },
   components: {
-    IconCheckbox
-  }
+    IconCheckbox,
+  },
 };
 </script>
 

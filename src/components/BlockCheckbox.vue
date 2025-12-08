@@ -20,7 +20,7 @@
 
 <script>
 import BlockDropdown from './BlockDropdown.vue';
-import IconArrow from './IconArrow.vue';
+import IconArrow from './icons/IconArrow.vue';
 
 export default {
   name: 'BlockCheckbox',
@@ -38,7 +38,7 @@ export default {
       ).length;
     },
     setProp(block, name, value) {
-      this.$store.commit('changeBxResponseItem', {block, name, value});
+      this.$store.commit('changeBxResponseItem', { block, name, value });
     },
     drop() {
       if (this.block.dropdown) {
@@ -73,7 +73,7 @@ export default {
     computeCoords() {
       const rect = this.$refs.fblock.getBoundingClientRect();
       const catalogSection = document.querySelector('.b-catalog-section');
-      let csRect = {x:0};
+      let csRect = { x: 0 };
       if (catalogSection) {
         csRect = catalogSection.getBoundingClientRect();
       }

@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import PriceRange from './PriceRange.vue';
+import PriceRange from './controls/PriceRange.vue';
 
 export default {
   name: 'BlockDropdownRange',

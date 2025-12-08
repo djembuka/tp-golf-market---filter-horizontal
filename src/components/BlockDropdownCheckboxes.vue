@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import CheckboxControl from './CheckboxControl.vue';
+import CheckboxControl from './controls/CheckboxControl.vue';
 
 export default {
   name: 'BlockDropdownCheckboxes',
