@@ -151,7 +151,7 @@ a.vm-filter-block__button:active {
     display: block;
     top: 100%;
     opacity: 1;
-    z-index: 10;
+    z-index: 100;
   }
   .vm-filter-block__dropdown.vm-filter-block__dropdown--range {
     width: 320px;
