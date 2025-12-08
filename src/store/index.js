@@ -73,7 +73,7 @@ export default createStore({
             });
           } else if (item.PRICE) {
             Object.values(item.VALUES).forEach((value) => {
-              dataObj[value.CONTROL_NAME] = value.FILTERED_VALUE;
+              dataObj[value.CONTROL_NAME] = value.HTML_VALUE || value.VALUE;
             });
           }
         });
@@ -109,8 +109,8 @@ export default createStore({
       const max = Object.values(block.VALUES).find((value) =>
         value.CONTROL_ID.includes('MAX')
       );
-      min.FILTERED_VALUE = from;
-      max.FILTERED_VALUE = to;
+      min.HTML_VALUE = from;
+      max.HTML_VALUE = to;
     },
     bxResponse(state, { obj }) {
       state.bxResponse = obj;

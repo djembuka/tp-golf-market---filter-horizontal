@@ -2,8 +2,8 @@
   <price-range
     :min="Number(minValue.VALUE)"
     :max="Number(maxValue.VALUE)"
-    :from="Number(minValue.FILTERED_VALUE)"
-    :to="Number(maxValue.FILTERED_VALUE)"
+    :from="Number(minValue.HTML_VALUE || minValue.VALUE)"
+    :to="Number(maxValue.HTML_VALUE || maxValue.VALUE)"
     @slide="slide"
   />
 </template>
