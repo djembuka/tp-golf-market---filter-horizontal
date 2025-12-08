@@ -42,24 +42,40 @@ export default createStore({
     },
     checkedCount(state) {
       if (
-        state.bxResponse &&
-        state.bxResponse.ITEMS &&
-        typeof state.bxResponse.ITEMS === 'object'
-      ) {
-        const items = state.bxResponse.ITEMS;
-        const a = Object.values(items).filter((item) => {
-          if (
-            item.PROPERTY_TYPE === 'L' &&
-            typeof item.VALUES === 'object' &&
-            item.VALUES.length === undefined &&
-            Object.values(item.VALUES).find((value) => value.CHECKED)
-          ) {
-            return true;
-          }
-          return false;
-        });
-        return a.length;
-      }
+        !state.bxResponse ||
+        !state.bxResponse.PRICES ||
+        !state.bxResponse.ITEMS
+      )
+        return 0;
+
+      // items
+      const items = state.bxResponse.ITEMS;
+      const a = Object.values(items).filter((item) => {
+        if (
+          item.PROPERTY_TYPE === 'L' &&
+          typeof item.VALUES === 'object' &&
+          item.VALUES.length === undefined &&
+          Object.values(item.VALUES).find((value) => value.CHECKED)
+        ) {
+          return true;
+        }
+        return false;
+      });
+
+      // prices
+      const keys = Object.keys(state.bxResponse.PRICES);
+
+      const prices = keys.map((key) => {
+        return items[key];
+      });
+
+      const b = Object.values(prices).filter((item) => {
+        return Object.values(item.VALUES).some(
+          (v) => v.HTML_VALUE && String(v.HTML_VALUE) !== String(v.VALUE)
+        );
+      });
+
+      return a.length + b.length;
     },
     formData(state) {
       if (state.bxResponse) {
