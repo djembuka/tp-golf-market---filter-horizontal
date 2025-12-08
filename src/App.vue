@@ -59,9 +59,10 @@ export default {
           !e.target.classList.contains('vm-filter-block__dropdown') &&
           !e.target.closest('.vm-filter-block__dropdown')
         ) {
-          const active = this.$store.getters.items.find(
-            (i) => i.dropdown && !i.animate
-          );
+          const active = [
+            ...this.$store.getters.items,
+            ...this.$store.getters.prices,
+          ].find((i) => i.dropdown && !i.animate);
 
           if (active) {
             this.$store.commit('changeBxResponseItem', {
