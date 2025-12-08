@@ -33,6 +33,14 @@ export default {
   props: ['block'],
   methods: {
     getCount() {
+      if (
+        this.block.PRICE &&
+        Object.values(this.block.VALUES).some(
+          (v) => v.HTML_VALUE && String(v.HTML_VALUE) !== String(v.VALUE)
+        )
+      )
+        return '!';
+
       return Object.values(this.block.VALUES).filter(
         (value) => value.CHECKED && value.ELEMENT_COUNT
       ).length;
