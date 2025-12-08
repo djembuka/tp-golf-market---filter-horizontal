@@ -36,11 +36,6 @@ export default {
   },
   props: ['label', 'inputName', 'modelValue'],
   emits: ['update:modelValue'],
-  // watch: {
-  //   modelValue(newVal) {
-  //     this.initValue(newVal);
-  //   },
-  // },
   computed: {
     value: {
       get() {
@@ -87,9 +82,6 @@ export default {
       const meta = document.querySelector('meta[name="viewport"]');
       meta.setAttribute('content', 'width=device-width, initial-scale=1.0');
     },
-    // initValue(value) {
-    //   this.displayValue = this.formatNumber(String(value));
-    // },
     formatNumber(value) {
       value = String(value);
       // 1. Оставляем только цифры
@@ -151,9 +143,6 @@ export default {
         this.clearable = true;
       }
     },
-  },
-  mounted() {
-    // this.initValue(this.modelValue);
   },
 };
 </script>
