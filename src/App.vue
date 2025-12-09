@@ -3,14 +3,16 @@
   <div class="vm-filter" v-else>
     <div class="vm-filter-scroll" ref="fscroll">
       <block-component
-        v-for="block in $store.getters.prices"
+        v-for="(block, index) in $store.getters.prices"
         :key="block.ID"
         :block="block"
+        :last="lastPrice(index)"
       />
       <block-component
-        v-for="block in $store.getters.items"
+        v-for="(block, index) in $store.getters.items"
         :key="block.ID"
         :block="block"
+        :last="lastItem(index)"
       />
       <cancel-button></cancel-button>
     </div>
@@ -52,6 +54,12 @@ export default {
     },
   },
   methods: {
+    lastPrice(index) {
+      return index + 1 === this.$store.getters.prices.length && !this.$store.getters.items.length
+    },
+    lastItem(index) {
+      return index + 1 === this.$store.getters.items.length
+    },
     hideDropdowns(e) {
       if (window.matchMedia('(width <= 767px)').matches) {
         //mobile

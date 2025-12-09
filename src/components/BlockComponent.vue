@@ -4,6 +4,7 @@
     :class="{
       'vm-filter-block--animate': animate,
       'vm-filter-block--dropdown': block.dropdown,
+      'vm-filter-block--last': last,
     }"
     ref="fblock"
   >
@@ -30,7 +31,10 @@ export default {
       dropdown: false,
     };
   },
-  props: ['block'],
+  props: ['block', 'last'],
+  computed: {
+
+  },
   methods: {
     getCount() {
       if (
@@ -115,6 +119,9 @@ export default {
 .vm-filter-block {
   position: relative;
 }
+.vm-filter-block.vm-filter-block--last {
+  margin-right: calc(140px + 16px);
+}
 .vm-filter-block.vm-filter-block--animate,
 .vm-filter-block.vm-filter-block--dropdown {
   z-index: 30;
@@ -150,5 +157,10 @@ export default {
 .vm-filter-block__head-content span {
   display: inline-block;
   min-width: 26px;
+}
+@media(max-width: 767px) {
+.vm-filter-block.vm-filter-block--last {
+    margin-right: 0;
+  }
 }
 </style>

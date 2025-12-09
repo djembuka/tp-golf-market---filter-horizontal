@@ -1,8 +1,8 @@
 <template>
   <div
     class="vm-filter-block__cancel"
+    :class="{'vm-filter-block__cancel--disabled': !$store.getters.checkedCount}"
     @click.prevent="clear"
-    v-if="$store.getters.checkedCount"
   >
     Очистить фильтры
   </div>
@@ -34,5 +34,15 @@ export default {
   cursor: pointer;
   user-select: none;
   white-space: nowrap;
+  margin-left: calc(-140px - 16px);
+}
+.vm-filter-block__cancel--disabled {
+  color: #fff;
+  pointer-events: none;
+}
+@media(max-width: 767px) {
+  .vm-filter-block__cancel {
+    margin-left: 0;
+  }
 }
 </style>
