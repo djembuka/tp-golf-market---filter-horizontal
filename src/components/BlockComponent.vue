@@ -46,7 +46,7 @@ export default {
         return '!';
 
       return Object.values(this.block.VALUES).filter(
-        (value) => value.CHECKED && value.ELEMENT_COUNT
+        (value) => value.CHECKED
       ).length;
     },
     setProp(block, name, value) {
