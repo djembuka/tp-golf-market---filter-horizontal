@@ -7,23 +7,27 @@ export default createStore({
   getters: {
     items(state) {
       if (
-        state.bxResponse &&
-        state.bxResponse.ITEMS &&
-        typeof state.bxResponse.ITEMS === 'object'
-      ) {
-        const items = state.bxResponse.ITEMS;
-        const a = Object.values(items).filter((item) => {
-          if (
-            item.PROPERTY_TYPE === 'L' &&
-            typeof item.VALUES === 'object' &&
-            item.VALUES.length === undefined
-          ) {
-            return true;
-          }
+        !state.bxResponse ||
+        !state.bxResponse.ITEMS ||
+        !state.bxResponse.PROPERTY_ID_LIST
+      ) return [];
+
+      const items = state.bxResponse.ITEMS;
+      const idArr = state.bxResponse.PROPERTY_ID_LIST;
+
+      const result = idArr.map(id => {
+        return items[String(id)] || {};
+      });
+
+      const withValues = result.filter(item => {
+        if (typeof item.VALUES === 'object' && Object.values(item.VALUES).length) {
+          return true;
+        } else {
           return false;
-        });
-        return a.length ? a : [];
-      }
+        }
+      });
+
+      return withValues;
     },
     prices(state) {
       if (
