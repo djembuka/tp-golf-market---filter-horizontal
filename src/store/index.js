@@ -15,11 +15,11 @@ export default createStore({
       const items = state.bxResponse.ITEMS;
       const idArr = state.bxResponse.PROPERTY_ID_LIST;
 
-      const result = idArr.map(id => {
+      const result = idArr
+      .map(id => {
         return items[String(id)] || {};
-      });
-
-      const withValues = result.filter(item => {
+      })
+      .filter(item => {
         if (typeof item.VALUES === 'object' && Object.values(item.VALUES).length) {
           return true;
         } else {
@@ -27,7 +27,7 @@ export default createStore({
         }
       });
 
-      return withValues;
+      return result;
     },
     prices(state) {
       if (
@@ -45,65 +45,91 @@ export default createStore({
       });
     },
     checkedCount(state) {
-      if (
-        !state.bxResponse ||
-        !state.bxResponse.PRICES ||
-        !state.bxResponse.ITEMS
-      )
+      if (!state.bxResponse || !state.bxResponse.ITEMS)
         return 0;
 
-      // items
       const items = state.bxResponse.ITEMS;
-      const a = Object.values(items).filter((item) => {
-        if (
-          item.PROPERTY_TYPE === 'L' &&
-          typeof item.VALUES === 'object' &&
-          item.VALUES.length === undefined &&
-          Object.values(item.VALUES).find((value) => value.CHECKED)
-        ) {
-          return true;
-        }
-        return false;
-      });
+
+      // items
+      let a = [];
+
+      if (state.bxResponse.ITEMS && state.bxResponse.PROPERTY_ID_LIST) {
+        const idArr = state.bxResponse.PROPERTY_ID_LIST;
+
+        a = idArr
+        .map(id => {
+          return items[String(id)] || {};
+        })
+        .filter(item => {
+          if (typeof item.VALUES === 'object' && Object.values(item.VALUES).some((value) => value.CHECKED)) {
+            return true;
+          } else {
+            return false;
+          }
+        });
+      }
 
       // prices
-      const keys = Object.keys(state.bxResponse.PRICES);
+      let b = [];
+      if (state.bxResponse.PRICES) {
+        const keys = Object.keys(state.bxResponse.PRICES);
 
-      const prices = keys.map((key) => {
-        return items[key];
-      });
-
-      const b = Object.values(prices).filter((item) => {
-        return Object.values(item.VALUES).some(
-          (v) => v.HTML_VALUE && String(v.HTML_VALUE) !== String(v.VALUE)
-        );
-      });
+        b = keys
+        .map((key) => {
+          return items[key];
+        })
+        .filter((item) => {
+          return Object.values(item.VALUES).some(
+            (v) => v.HTML_VALUE && String(v.HTML_VALUE) !== String(v.VALUE)
+          );
+        });
+      }
 
       return a.length + b.length;
     },
     formData(state) {
-      if (state.bxResponse) {
-        const dataObj = {};
-        Object.values(state.bxResponse.ITEMS).forEach((item) => {
-          if (item.PROPERTY_TYPE) {
-            Object.values(item.VALUES).forEach((value) => {
-              if (value.CHECKED) {
-                dataObj[value.CONTROL_NAME] = value.HTML_VALUE;
-              }
-            });
-          } else if (item.PRICE) {
-            Object.values(item.VALUES).forEach((value) => {
-              dataObj[value.CONTROL_NAME] = value.HTML_VALUE || value.VALUE;
-            });
-          }
-        });
+      if (
+        !state.bxResponse ||
+        !state.bxResponse.ITEMS
+      ) return '';
 
-        return Object.entries(dataObj)
-          .map((entry) => `${entry[0]}=${entry[1]}`)
-          .join('&');
-      } else {
-        return '';
+      const dataObj = {};
+      const items = Object.values(state.bxResponse.ITEMS);
+
+      // items
+      if (state.bxResponse.PROPERTY_ID_LIST) {
+        const idArr = state.bxResponse.PROPERTY_ID_LIST;
+
+        idArr.forEach(id => {
+          const item = items[String(id)];
+          if (!item || !item.VALUES) return;
+
+          Object.values(item.VALUES).forEach((value) => {
+            if (value.CHECKED) {
+              dataObj[value.CONTROL_NAME] = value.HTML_VALUE;
+            }
+          });
+        })
       }
+
+      // prices
+      if (state.bxResponse.PRICES) {
+        const keys = Object.keys(state.bxResponse.PRICES);
+
+        keys
+        .forEach((key) => {
+          const item = items[String(key)];
+          if (!item || !item.VALUES) return;
+
+          Object.values(item.VALUES).forEach((value) => {
+            dataObj[value.CONTROL_NAME] = value.HTML_VALUE || value.VALUE;
+          });
+        });
+      }
+
+      return Object.entries(dataObj)
+        .map((entry) => `${entry[0]}=${entry[1]}`)
+        .join('&');
     },
   },
   mutations: {
