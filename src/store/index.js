@@ -94,7 +94,7 @@ export default createStore({
       ) return '';
 
       const dataObj = {};
-      const items = Object.values(state.bxResponse.ITEMS);
+      const items = state.bxResponse.ITEMS;
 
       // items
       if (state.bxResponse.PROPERTY_ID_LIST) {
@@ -102,13 +102,13 @@ export default createStore({
 
         idArr.forEach(id => {
           const item = items[String(id)];
-          if (!item || !item.VALUES) return;
-
-          Object.values(item.VALUES).forEach((value) => {
-            if (value.CHECKED) {
-              dataObj[value.CONTROL_NAME] = value.HTML_VALUE;
-            }
-          });
+          if (item && item.VALUES) {
+            Object.values(item.VALUES).forEach((value) => {
+              if (value.CHECKED) {
+                dataObj[value.CONTROL_NAME] = value.HTML_VALUE;
+              }
+            });
+          }
         })
       }
 
@@ -119,11 +119,11 @@ export default createStore({
         keys
         .forEach((key) => {
           const item = items[String(key)];
-          if (!item || !item.VALUES) return;
-
-          Object.values(item.VALUES).forEach((value) => {
-            dataObj[value.CONTROL_NAME] = value.HTML_VALUE || value.VALUE;
-          });
+          if (item && item.VALUES) {
+            Object.values(item.VALUES).forEach((value) => {
+              dataObj[value.CONTROL_NAME] = value.HTML_VALUE || value.VALUE;
+            });
+          }
         });
       }
 
