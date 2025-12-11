@@ -52,6 +52,7 @@ export default {
 .vm-filter-checkbox {
   --primary-color: #000;
   --primary-color-hover: #000000bb;
+  position: relative;
   padding: 8px;
   display: flex;
   align-items: center;
